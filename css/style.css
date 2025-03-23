@@ -1,0 +1,47 @@
+/*
+Colors
+2  #fefae0 Creme 
+4  #d8c99b Beige 
+8  #f8961e Orange clair
+16 #f3722c Orange moyen
+32 #f9844a Rouge clair
+64 #f94144 Rouge
+128 #fff75e Jaune clair
+256 #ffe94e Jaune
+512 #ffda3d Jaune foncé
+1024 #fdc43f Jaune doré
+2048 #fdb833 Jaune très foncé, presque orange
+*/
+
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Boldonse", system-ui;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #f7f0e3;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #5e503f;
+}
+
+#myCanvas {
+  border: 4px solid #927e67;
+  width: 60vh;
+  height: 60vh;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: xx-large;
+  text-align: start;
+  margin-bottom: 2rem;
+}
