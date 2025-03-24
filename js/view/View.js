@@ -7,7 +7,7 @@ class View {
     this.myCanva = document.querySelector("#myCanvas");
     this.ctx = this.myCanva.getContext("2d");
     this.myCanva.width = this.game.width * this.tileSize;
-    this.myCanva.height = this.game.width * this.tileSize; // oblig
+    this.myCanva.height = this.game.width * this.tileSize; 
 
     this.displayGrid();
   }
