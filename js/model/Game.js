@@ -34,7 +34,7 @@ class Game {
 
     for (let y = 0; y < this.width; y++) {
       for (let x = 0; x < this.width; x++) {
-        if (this.matrix[x][y] === 0) {
+        if (this.matrix[y][x] === 0) {
           emptyPositions.push(new Position(x, y)); //y x
         }
       }
