@@ -1,4 +1,4 @@
-//import Colors from "../model/Colors";
+import NumerosColors from "../model/NumerosColors.js";
 
 class View {
   constructor(game, document, tileSize) {
@@ -41,6 +41,25 @@ class View {
     for (let y = 0; y < this.game.width; y++) {
       for (let x = 0; x < this.game.width; x++) {
         if (this.game.matrix[y][x] !== 0) {
+          //color tile
+          this.ctx.fillStyle = NumerosColors['2'];
+          this.ctx.fillRect(
+            // position x y & tileSize (width & height)
+            x * this.tileSize,
+            y * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          // border
+          this.ctx.lineWidth = 4;
+          this.ctx.strokeStyle = "#927e67"
+          this.ctx.strokeRect(
+            x * this.tileSize,
+            y * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          //font number
           this.ctx.font = `bold ${this.tileSize/2}px monospace`;
           this.ctx.fillStyle = "#5e503f";
           this.ctx.textAlign = "center"; //align horiz
@@ -48,12 +67,12 @@ class View {
           this.ctx.fillText(
             this.game.matrix[y][x],
             x * this.tileSize + this.tileSize/2,
-            y * this.tileSize + this.tileSize/2)
+            y * this.tileSize + this.tileSize/2
+          );
         }
       }
     }
   }
-
 }
 
 export default View;

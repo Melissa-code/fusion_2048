@@ -1,7 +1,3 @@
-import Tile from "./Tile.js";
-import Colors from "./Colors.js";
-import Position from "./Position.js";
-
 class Game {
   constructor() {
     this.width = 4;
@@ -30,23 +26,18 @@ class Game {
   }
 
   generateNumberTwoInMatrixRandomly() {
-    let emptyPositions = [];
+    let randomY ;
+    let randomX ;
+    do {
+       randomY = Math.floor(Math.random() * this.matrix[0].length);
+       randomX = Math.floor(Math.random() * this.matrix[1].length);
+    } while (this.matrix[randomY][randomX] != 0);
 
-    for (let y = 0; y < this.width; y++) {
-      for (let x = 0; x < this.width; x++) {
-        if (this.matrix[y][x] === 0) {
-          emptyPositions.push(new Position(x, y)); //y x
-        }
-      }
-    }
-
-    if (emptyPositions.length > 0) {
-      //index aléatoire in emptyPositions[] (arrondi entier inférieur)
-      //ex: randomPosition = emptyPositions[1]; //position 1 soit [1, 2]
-      const randomPosition = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
-      this.matrix[randomPosition.y][randomPosition.x] = 2;
-    }
+    console.log(randomX, randomY);
+    this.matrix[randomY][randomX] = 2;
   }
+
+  // déplacement dans 4 directions 
 }
 
 export default Game;

@@ -1,17 +1,4 @@
-/*
-Colors
-2  #fefae0 Creme 
-4  #d8c99b Beige 
-8  #f8961e Orange clair
-16 #f3722c Orange moyen
-32 #f9844a Rouge clair
-64 #f94144 Rouge
-128 #fff75e Jaune clair
-256 #ffe94e Jaune
-512 #ffda3d Jaune foncé
-1024 #fdc43f Jaune doré
-2048 #fdb833 Jaune très foncé, presque orange
-*/
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
 
 *, ::before, ::after {
   box-sizing: border-box;
