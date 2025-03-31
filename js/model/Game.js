@@ -26,18 +26,56 @@ class Game {
   }
 
   generateNumberTwoInMatrixRandomly() {
-    let randomY ;
-    let randomX ;
+    let randomY;
+    let randomX;
     do {
-       randomY = Math.floor(Math.random() * this.matrix[0].length);
-       randomX = Math.floor(Math.random() * this.matrix[1].length);
-    } while (this.matrix[randomY][randomX] != 0);
+      randomY = Math.floor(Math.random() * this.matrix[0].length);
+      randomX = Math.floor(Math.random() * this.matrix[1].length);
+    } while (this.matrix[randomY][randomX] !== 0);
 
-    console.log(randomX, randomY);
     this.matrix[randomY][randomX] = 2;
   }
 
-  // déplacement dans 4 directions 
+  moveUp() {
+    for (let x = 0; x < this.width; x++) {
+      // N° dans chaq col
+      let columnNumeros = [];
+      for (let y = 0; y < this.width; y++) {
+        if (this.matrix[y][x] !== 0) {
+          columnNumeros.push(this.matrix[y][x]);
+        }
+      }
+
+      // fusion des memes n° (values)
+      for (let i = 0; i < columnNumeros.length; i++) {
+        if (columnNumeros[i] === columnNumeros[i + 1]) {
+          columnNumeros[i] *= 2;
+          columnNumeros[i + 1] = 0;
+        }
+      }
+      console.log(columnNumeros)
+
+      while (columnNumeros.length < this.width) {
+        columnNumeros.push(0);
+      }
+
+      // update matrix
+      for (let y = 0; y < this.width; y++) {
+        this.matrix[y][x] = columnNumeros[y];
+      }
+    }
+
+    console.table(this.matrix);
+  }
+
+  // déplacement dans 4 directions
+  processKey(event) {
+    switch (event.key) {
+      case "ArrowUp":
+        this.moveUp();
+        break;
+    }
+  }
 }
 
 export default Game;
