@@ -68,7 +68,34 @@ class Game {
     console.table(this.matrix);
   }
 
-  // déplacement dans 4 directions
+  fusion(numerosArray) {
+    let fusionArray = []; 
+    let oldElement = numerosArray.schift();
+    console.log(oldElement)
+    if (!oldElement) {
+      console.log('aucun élément')
+      return fusionArray;
+    }
+    let newElement = null;
+    while (numerosArray.length > 0) {
+      newElement = numerosArray.schift()
+      if (newElement == oldElement && oldElement!=null) {
+        fusionArray.push(newElement + oldElement);
+        oldElement = null;
+        newElement = null;
+      } else {
+        if (oldElement!=null)
+          fusionArray.push(oldElement);
+        else oldElement = newElement;
+      }
+    }
+    if (newElement==null && oldElement!=null)
+      fusionArray.push(oldElement);
+
+    return fusionArray; 
+  }
+
+  //déplacements
   processKey(event) {
     switch (event.key) {
       case "ArrowUp":
