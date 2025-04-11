@@ -47,21 +47,14 @@ class Game {
       }
 
       // fusion des memes n° (values)
-      for (let i = 0; i < columnNumeros.length; i++) {
-        if (columnNumeros[i] === columnNumeros[i + 1]) {
-          columnNumeros[i] *= 2;
-          columnNumeros[i + 1] = 0;
-        }
-      }
-      console.log(columnNumeros)
-
-      while (columnNumeros.length < this.width) {
-        columnNumeros.push(0);
+      let mergedColumn = this.fusion(columnNumeros); 
+      while (mergedColumn.length < this.width) {
+        mergedColumn.push(0);
       }
 
       // update matrix
       for (let y = 0; y < this.width; y++) {
-        this.matrix[y][x] = columnNumeros[y];
+        this.matrix[y][x] = mergedColumn[y];
       }
     }
 
@@ -70,34 +63,46 @@ class Game {
 
   fusion(numerosArray) {
     let fusionArray = []; 
-    let oldElement = numerosArray.schift();
-    console.log(oldElement)
+    let oldElement = numerosArray.shift();
+    console.log("oldElement", oldElement)
+
     if (!oldElement) {
       console.log('aucun élément')
-      return fusionArray;
+
+      // return empty array
+      return fusionArray; 
     }
+
     let newElement = null;
     while (numerosArray.length > 0) {
-      newElement = numerosArray.schift()
-      if (newElement == oldElement && oldElement!=null) {
+      newElement = numerosArray.shift()
+      console.log("newElement", newElement)
+      // if fusion
+      if (newElement === oldElement && oldElement !== null) {
         fusionArray.push(newElement + oldElement);
+        console.log(fusionArray)
+        console.log(numerosArray)
         oldElement = null;
         newElement = null;
+      // oldElem in fusionArray & if oldEl is null oldEl becomes newElem
       } else {
-        if (oldElement!=null)
-          fusionArray.push(oldElement);
-        else oldElement = newElement;
+        if (oldElement !== null) {
+          fusionArray.push(oldElement); 
+          console.log(fusionArray)
+        } else {
+          oldElement = newElement;
+        }
       }
     }
-    if (newElement==null && oldElement!=null)
-      fusionArray.push(oldElement);
+    // keep oldEl
+    if (newElement === null && oldElement !== null) fusionArray.push(oldElement);
 
     return fusionArray; 
   }
 
   //déplacements
   processKey(event) {
-    switch (event.key) {
+    switch(event.key) {
       case "ArrowUp":
         this.moveUp();
         break;
