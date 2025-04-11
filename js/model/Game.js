@@ -61,6 +61,44 @@ class Game {
     console.table(this.matrix);
   }
 
+  move(direction) {
+    for (let x = 0; x < this.width; x++) {
+      let numerosArray = [];
+
+      // directions up & down
+      if (direction === "up" || direction === "down") {
+        for (let y = 0; y < this.width; y++) {
+          if (this.matrix[y][x] !== 0) {
+            numerosArray.push(this.matrix[y][x]);
+          }
+        }
+      } else {
+        // right & left
+      }
+
+      // fusion des memes n° (values)
+      let mergedNumeros = this.fusion(numerosArray); 
+
+      while (mergedNumeros.length < this.width) {
+        mergedNumeros.push(0);
+      }
+
+      if (direction === "up" || direction === "down") {
+        if (direction === "up") {
+          // update matrix (lignes de la col)
+          for (let y = 0; y < this.width; y++) {
+            this.matrix[y][x] = mergedNumeros[y];
+          }
+        }
+        if (direction === "down") {
+          for (let y = this.width -1, i=0; y < 0; y--, i++) {
+            this.matrix[y][x] = mergedNumeros[i];
+          }
+        }
+      }
+    }
+  }
+
   fusion(numerosArray) {
     let fusionArray = []; 
     let oldElement = numerosArray.shift();
@@ -104,7 +142,11 @@ class Game {
   processKey(event) {
     switch(event.key) {
       case "ArrowUp":
-        this.moveUp();
+        //this.moveUp();
+        this.move("up")
+        break;
+      case "ArrowDown":
+        this.move("down")
         break;
     }
   }
