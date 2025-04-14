@@ -9,8 +9,12 @@ class View {
     this.myCanva.width = this.game.width * this.tileSize;
     this.myCanva.height = this.game.width * this.tileSize; 
 
+    this.refresh(); 
+  }
+
+  refresh() {
     this.displayGrid();
-    this.displayNumberTwoInGridRandomly();
+    this.displayNumbers();
   }
 
   displayGrid() {
@@ -37,7 +41,7 @@ class View {
     }
   }
 
-  displayNumberTwoInGridRandomly() {
+  displayNumbers() {
     for (let y = 0; y < this.game.width; y++) {
       for (let x = 0; x < this.game.width; x++) {
         if (this.game.matrix[y][x] !== 0) {
@@ -73,6 +77,8 @@ class View {
       }
     }
   }
+
+
 }
 
 export default View;
