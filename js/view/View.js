@@ -45,8 +45,9 @@ class View {
     for (let y = 0; y < this.game.width; y++) {
       for (let x = 0; x < this.game.width; x++) {
         if (this.game.matrix[y][x] !== 0) {
-          //color tile
-          this.ctx.fillStyle = NumerosColors['2'];
+          //display color tile
+          let number = this.game.matrix[y][x]; 
+          this.ctx.fillStyle = NumerosColors[number]; 
           this.ctx.fillRect(
             // position x y & tileSize (width & height)
             x * this.tileSize,

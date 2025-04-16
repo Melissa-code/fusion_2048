@@ -5,10 +5,9 @@ class Game {
     this.gameOver = false;
     this.score = 0;
     this.matrix = this.initGame();
+  
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
-
-    console.table(this.matrix);
   }
 
   initGame() {
@@ -36,29 +35,33 @@ class Game {
     this.matrix[randomY][randomX] = 2;
   }
 
-  moveUp() {
-    for (let x = 0; x < this.width; x++) {
-      // N° dans chaq col
-      let columnNumeros = [];
-      for (let y = 0; y < this.width; y++) {
-        if (this.matrix[y][x] !== 0) {
-          columnNumeros.push(this.matrix[y][x]);
-        }
-      }
+  // random 1 et 10inclus: si 10 find 4 au lieu de 2 
+  // ajouter un chiffre
+  // voir si opti des boucles dans move()
+  generateNewNumberInMatrixRandomly() {
+    let randomY;
+    let randomX;
+    // between 1-10
+    let randomNumber = Math.floor((Math.random() * 10) +1);
+    console.log("aléatoire numéro:", randomNumber); 
 
-      // fusion des memes n° (values)
-      let mergedColumn = this.fusion(columnNumeros);
-      while (mergedColumn.length < this.width) {
-        mergedColumn.push(0);
-      }
+    if (randomNumber === 4) {
+      do {
+        randomY = Math.floor(Math.random() * this.matrix[0].length);
+        randomX = Math.floor(Math.random() * this.matrix[1].length);
+      } while (this.matrix[randomY][randomX] !== 0);
 
-      // update matrix
-      for (let y = 0; y < this.width; y++) {
-        this.matrix[y][x] = mergedColumn[y];
-      }
+      this.matrix[randomY][randomX] = 4;
+    } else {
+      do {
+        randomY = Math.floor(Math.random() * this.matrix[0].length);
+        randomX = Math.floor(Math.random() * this.matrix[1].length);
+      } while (this.matrix[randomY][randomX] !== 0);
+  
+      this.matrix[randomY][randomX] = 2;
     }
-
-    console.table(this.matrix);
+    
+    console.table(this.matrix); 
   }
 
   move(direction) {
@@ -140,7 +143,6 @@ class Game {
 
       if (!oldElement) {
         console.log("aucun élément");
-
         // return empty array
         return fusionArray;
       }
@@ -156,13 +158,15 @@ class Game {
           console.log(numerosArray);
           oldElement = null;
           newElement = null;
+        
           // oldElem in fusionArray & if oldEl is null oldEl becomes newElem
         } else {
           if (oldElement !== null) {
             fusionArray.push(oldElement);
             console.log(fusionArray);
-          } else {
-            oldElement = newElement;
+          }
+           else {
+             oldElement = newElement;
           }
         }
       }
@@ -174,17 +178,20 @@ class Game {
     while (fusionArray.length < this.width) {
       fusionArray.push(0);
     }
+
     return fusionArray;
   }
 
   //déplacements
   processKey(event) {
+    let oldMatrix = JSON.stringify(this.matrix);
+
     switch (event.key) {
       case "ArrowUp":
         this.move("up");
         break;
       case "ArrowDown":
-        this.move("down");
+        this.move("down"); 
         break;
       case "ArrowRight":
         this.move("right");
@@ -193,11 +200,16 @@ class Game {
         this.move("left");
         break;
     }
+
+    // Add a new number after an event 
+    let newMatrix = JSON.stringify(this.matrix);
+    console.log(newMatrix);
+    if (oldMatrix !== newMatrix) {
+      this.generateNewNumberInMatrixRandomly();
+    }
+
+    console.table(this.matrix);
   }
 }
-
-// random 1 et 10inclus: si 10 find 4 au lieu de 2 
-// ajouter un chiffre
-// voir si opti des boucles dans move()
 
 export default Game;
