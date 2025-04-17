@@ -5,9 +5,10 @@ class Game {
     this.gameOver = false;
     this.score = 0;
     this.matrix = this.initGame();
-  
+  this.matrix[0][0]=2048;
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
+    
   }
 
   initGame() {
@@ -24,6 +25,17 @@ class Game {
     return newMatrix;
   }
 
+  checkIfMatrixFull() {
+    for (let y = 0; y < this.width; y++) {
+      for (let x = 0; x < this.width; x++) {
+        if (this.matrix[y][x] === 0) {
+          return false;
+        } 
+      }
+    }
+    return true;
+  }
+
   generateNumberTwoInMatrixRandomly() {
     let randomY;
     let randomX;
@@ -35,30 +47,28 @@ class Game {
     this.matrix[randomY][randomX] = 2;
   }
 
-  // random 1 et 10inclus: si 10 find 4 au lieu de 2 
-  // ajouter un chiffre
-  // voir si opti des boucles dans move()
   generateNewNumberInMatrixRandomly() {
-    let randomY;
-    let randomX;
-    // between 1-10
-    let randomNumber = Math.floor((Math.random() * 10) +1);
-    console.log("aléatoire numéro:", randomNumber); 
-
-    if (randomNumber === 4) {
-      do {
-        randomY = Math.floor(Math.random() * this.matrix[0].length);
-        randomX = Math.floor(Math.random() * this.matrix[1].length);
-      } while (this.matrix[randomY][randomX] !== 0);
-
-      this.matrix[randomY][randomX] = 4;
-    } else {
-      do {
-        randomY = Math.floor(Math.random() * this.matrix[0].length);
-        randomX = Math.floor(Math.random() * this.matrix[1].length);
-      } while (this.matrix[randomY][randomX] !== 0);
+    if (!this.checkIfMatrixFull()) {
+      let randomY;
+      let randomX;
+      // between 1-10
+      let randomNumber = Math.floor((Math.random() * 10) +1);
   
-      this.matrix[randomY][randomX] = 2;
+      if (randomNumber === 4) {
+        do {
+          randomY = Math.floor(Math.random() * this.matrix[0].length);
+          randomX = Math.floor(Math.random() * this.matrix[1].length);
+        } while (this.matrix[randomY][randomX] !== 0);
+  
+        this.matrix[randomY][randomX] = 4;
+      } else {
+        do {
+          randomY = Math.floor(Math.random() * this.matrix[0].length);
+          randomX = Math.floor(Math.random() * this.matrix[1].length);
+        } while (this.matrix[randomY][randomX] !== 0);
+    
+        this.matrix[randomY][randomX] = 2;
+      }  
     }
     
     console.table(this.matrix); 
@@ -135,45 +145,33 @@ class Game {
     }
   }
 
-  fusion(numerosArray) {
+  fusion(numerosArray_) {
+    //[2,2,2]
+    let numerosArray = numerosArray_.filter(x =>x!=0);
     let fusionArray = [];
-    if (numerosArray.length > 0) {
-      let oldElement = numerosArray.shift();
-      console.log("oldElement", oldElement);
-
-      if (!oldElement) {
-        console.log("aucun élément");
-        // return empty array
-        return fusionArray;
-      }
-
+    let oldElement = numerosArray.shift();
       let newElement = null;
       while (numerosArray.length > 0) {
         newElement = numerosArray.shift();
-        console.log("newElement", newElement);
-        // if fusion
+        if (oldElement==null)
+        {
+          oldElement=newElement;
+          continue;
+        }
         if (newElement === oldElement && oldElement !== null) {
           fusionArray.push(newElement + oldElement);
-          console.log(fusionArray);
-          console.log(numerosArray);
           oldElement = null;
-          newElement = null;
-        
           // oldElem in fusionArray & if oldEl is null oldEl becomes newElem
-        } else {
+        } 
+        else {
           if (oldElement !== null) {
             fusionArray.push(oldElement);
-            console.log(fusionArray);
-          }
-           else {
-             oldElement = newElement;
+            oldElement=newElement;
           }
         }
       }
-      // keep oldEl
-      if (newElement === null && oldElement !== null)
+      if (oldElement!=null)
         fusionArray.push(oldElement);
-    }
 
     while (fusionArray.length < this.width) {
       fusionArray.push(0);
@@ -184,8 +182,6 @@ class Game {
 
   //déplacements
   processKey(event) {
-    let oldMatrix = JSON.stringify(this.matrix);
-
     switch (event.key) {
       case "ArrowUp":
         this.move("up");
@@ -201,15 +197,16 @@ class Game {
         break;
     }
 
-    // Add a new number after an event 
-    let newMatrix = JSON.stringify(this.matrix);
-    console.log(newMatrix);
-    if (oldMatrix !== newMatrix) {
-      this.generateNewNumberInMatrixRandomly();
-    }
-
+    this.generateNewNumberInMatrixRandomly();
     console.table(this.matrix);
   }
 }
+
+// faire le score
+// quand la matrix est pleine message perdu
+// 2 et 4 noir et lles autres blanc
+// reduire taille des 4 chiffres dans case
+// réinitialiser 
+// vérif si matrix est pleine avant de générer un nv nombre 
 
 export default Game;
