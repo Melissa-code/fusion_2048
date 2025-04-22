@@ -4,8 +4,8 @@ class Game {
     this.numbers = [];
     this.gameOver = false;
     this.score = 0;
-    this.matrix = this.initGame();
-  this.matrix[0][0]=2048;
+    this.matrix = this.loadGame() || this.initGame();
+  //this.matrix[0][0]=2048;
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
     
@@ -197,9 +197,31 @@ class Game {
         break;
     }
 
+    this.saveGame(this.matrix); 
     this.generateNewNumberInMatrixRandomly();
     console.table(this.matrix);
   }
+
+  saveGame(matrix) {
+    localStorage.setItem('gameMatrix', JSON.stringify(matrix));
+  }
+
+  loadGame() {
+    const savedMatrix = localStorage.getItem('gameMatrix');
+    // JSON.parse(savedMatrix) convertir cette chaîne JSON en un objet JavaScript (la matrice)
+    return savedMatrix ? JSON.parse(savedMatrix) : null;
+  }
+
+  resetGame() {
+    localStorage.removeItem('gameMatrix');
+    this.matrix = this.initGame(); 
+    this.score = 0;
+    this.gameOver = false;
+
+    this.generateNumberTwoInMatrixRandomly();
+    this.generateNumberTwoInMatrixRandomly();
+  }
+
 }
 
 // faire le score

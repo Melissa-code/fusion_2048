@@ -20,15 +20,30 @@ body {
   color: #5e503f;
 }
 
-#myCanvas {
-  border: 4px solid #927e67;
-  width: 60vh;
-  height: 60vh;
-}
-
 h1 {
   font-weight: 600;
   font-size: xx-large;
   text-align: start;
   margin-bottom: 2rem;
+}
+
+button {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  border: 4px solid #5e503f;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+}
+
+#myCanvas {
+  border: 4px solid #927e67;
+  width: 60vh;
+  height: 60vh;
 }
