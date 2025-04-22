@@ -15,6 +15,7 @@ class View {
   refresh() {
     this.displayGrid();
     this.displayNumbers();
+    this.displayScore();
   }
 
   displayGrid() {
@@ -79,7 +80,10 @@ class View {
     }
   }
 
-
+  displayScore() {
+    let  scoreElement = document.querySelector("#score");
+    scoreElement.textContent = "Score: "+ this.game.score;    
+  }
 }
 
 export default View;

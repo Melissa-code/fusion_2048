@@ -159,9 +159,11 @@ class Game {
           continue;
         }
         if (newElement === oldElement && oldElement !== null) {
-          fusionArray.push(newElement + oldElement);
+          let sum = newElement + oldElement;
+          fusionArray.push(sum);
           oldElement = null;
           // oldElem in fusionArray & if oldEl is null oldEl becomes newElem
+          this.score += sum;
         } 
         else {
           if (oldElement !== null) {
@@ -197,19 +199,28 @@ class Game {
         break;
     }
 
-    this.saveGame(this.matrix); 
+    this.saveGame(this.matrix, this.score); 
     this.generateNewNumberInMatrixRandomly();
     console.table(this.matrix);
+    console.log("Score: "+ this.score);
   }
 
-  saveGame(matrix) {
+  saveGame(matrix, score) {
     localStorage.setItem('gameMatrix', JSON.stringify(matrix));
+    localStorage.setItem('gameScore', JSON.stringify(score));
   }
 
   loadGame() {
     const savedMatrix = localStorage.getItem('gameMatrix');
     // JSON.parse(savedMatrix) convertir cette chaîne JSON en un objet JavaScript (la matrice)
-    return savedMatrix ? JSON.parse(savedMatrix) : null;
+    const savedScore = localStorage.getItem('gameScore');
+    
+    if (savedMatrix && savedScore) {
+      this.score = JSON.parse(savedScore);
+      return JSON.parse(savedMatrix);
+    }
+  
+    return null;
   }
 
   resetGame() {
