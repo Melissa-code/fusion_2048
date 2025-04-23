@@ -5,7 +5,7 @@ class Game {
     this.gameOver = false;
     this.score = 0;
     this.matrix = this.loadGame() || this.initGame();
-  //this.matrix[0][0]=2048;
+this.matrix[0][0]=2048;
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
     
@@ -69,7 +69,7 @@ class Game {
     
         this.matrix[randomY][randomX] = 2;
       }  
-    }
+    } 
     
     console.table(this.matrix); 
   }
@@ -199,7 +199,7 @@ class Game {
         break;
     }
 
-    this.saveGame(this.matrix, this.score); 
+  //  this.saveGame(this.matrix, this.score); 
     this.generateNewNumberInMatrixRandomly();
     console.table(this.matrix);
     console.log("Score: "+ this.score);

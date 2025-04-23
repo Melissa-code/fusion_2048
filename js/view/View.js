@@ -48,7 +48,8 @@ class View {
         if (this.game.matrix[y][x] !== 0) {
           //display color tile
           let number = this.game.matrix[y][x]; 
-          this.ctx.fillStyle = NumerosColors[number]; 
+          this.ctx.fillStyle = NumerosColors[number.toString()];
+          //this.ctx.fillStyle = NumerosColors[number]; 
           this.ctx.fillRect(
             // position x y & tileSize (width & height)
             x * this.tileSize,
@@ -66,15 +67,22 @@ class View {
             this.tileSize
           );
           //font number
-          this.ctx.font = `bold ${this.tileSize/2}px monospace`;
-          this.ctx.fillStyle = "#5e503f";
+          const numberString = number.toString();
+          let fontSize = this.tileSize / (2.5 + numberString.length * 0.1); 
+          this.ctx.font = `bold ${fontSize}px monospace`;
+      
+          if (this.game.matrix[y][x] === 2 || this.game.matrix[y][x] === 4) {
+            this.ctx.fillStyle = "#5e503f";
+          } else {
+            this.ctx.fillStyle = "#FFFFFF";
+          }
           this.ctx.textAlign = "center"; //align horiz
           this.ctx.textBaseline = "middle"; //align vertic
           this.ctx.fillText(
             this.game.matrix[y][x],
             x * this.tileSize + this.tileSize/2,
             y * this.tileSize + this.tileSize/2
-          );
+          )
         }
       }
     }

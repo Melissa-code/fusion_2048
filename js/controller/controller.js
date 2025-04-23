@@ -14,4 +14,3 @@ resetBtn.addEventListener('click', () => {
     game.resetGame();   
     view.refresh();  
 });
-
