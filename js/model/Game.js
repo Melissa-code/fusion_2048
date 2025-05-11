@@ -5,10 +5,9 @@ class Game {
     this.gameOver = false;
     this.score = 0;
     this.matrix = this.loadGame() || this.initGame();
-this.matrix[0][0]=2048;
+
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
-    
   }
 
   initGame() {
@@ -71,7 +70,6 @@ this.matrix[0][0]=2048;
       }  
     } 
     
-    console.table(this.matrix); 
   }
 
   move(direction) {
@@ -184,6 +182,8 @@ this.matrix[0][0]=2048;
 
   //déplacements
   processKey(event) {
+    if (this.gameOver) return;
+
     switch (event.key) {
       case "ArrowUp":
         this.move("up");
@@ -199,10 +199,15 @@ this.matrix[0][0]=2048;
         break;
     }
 
+    if (this.checkIfMatrixFull()) {
+      this.gameOver = true;
+      console.log('perdu')
+      return; // ne pas générer un nouveau nombre
+    }
+
   //  this.saveGame(this.matrix, this.score); 
     this.generateNewNumberInMatrixRandomly();
-    console.table(this.matrix);
-    console.log("Score: "+ this.score);
+   
   }
 
   saveGame(matrix, score) {
@@ -233,13 +238,9 @@ this.matrix[0][0]=2048;
     this.generateNumberTwoInMatrixRandomly();
   }
 
+  isGameOver() {
+    return this.checkIfMatrixFull();
+  }
 }
-
-// faire le score
-// quand la matrix est pleine message perdu
-// 2 et 4 noir et lles autres blanc
-// reduire taille des 4 chiffres dans case
-// réinitialiser 
-// vérif si matrix est pleine avant de générer un nv nombre 
 
 export default Game;

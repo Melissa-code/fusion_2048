@@ -6,9 +6,10 @@ class View {
     this.tileSize = tileSize;
     this.myCanva = document.querySelector("#myCanvas");
     this.ctx = this.myCanva.getContext("2d");
+    this.ctx.scale(-1, 1);
     this.myCanva.width = this.game.width * this.tileSize;
-    this.myCanva.height = this.game.width * this.tileSize; 
-
+    this.myCanva.height = this.game.width * this.tileSize;
+    this.myCanva.style.transform = 'scale(1.1,1.1)';
     this.refresh(); 
   }
 
@@ -49,7 +50,6 @@ class View {
           //display color tile
           let number = this.game.matrix[y][x]; 
           this.ctx.fillStyle = NumerosColors[number.toString()];
-          //this.ctx.fillStyle = NumerosColors[number]; 
           this.ctx.fillRect(
             // position x y & tileSize (width & height)
             x * this.tileSize,
@@ -69,13 +69,14 @@ class View {
           //font number
           const numberString = number.toString();
           let fontSize = this.tileSize / (2.5 + numberString.length * 0.1); 
-          this.ctx.font = `bold ${fontSize}px monospace`;
+          this.ctx.font = `${fontSize}px arial`;
       
           if (this.game.matrix[y][x] === 2 || this.game.matrix[y][x] === 4) {
             this.ctx.fillStyle = "#5e503f";
           } else {
             this.ctx.fillStyle = "#FFFFFF";
           }
+
           this.ctx.textAlign = "center"; //align horiz
           this.ctx.textBaseline = "middle"; //align vertic
           this.ctx.fillText(
@@ -89,8 +90,14 @@ class View {
   }
 
   displayScore() {
-    let  scoreElement = document.querySelector("#score");
-    scoreElement.textContent = "Score: "+ this.game.score;    
+    let scoreElement = document.querySelector("#score");
+    scoreElement.textContent = "Score: "+ this.game.score;  
+   
+  }
+
+  displayMessage() {
+    let messageElement = document.querySelector("#messages");
+    messageElement.textContent = "Game over !"; 
   }
 }
 

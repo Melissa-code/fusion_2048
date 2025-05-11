@@ -15,16 +15,15 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   color: #5e503f;
 }
 
 h1 {
   font-weight: 600;
   font-size: xx-large;
-  text-align: start;
-  margin: 0 2rem 2rem 0;
+  margin: 0 1rem 3rem 0;
 }
 
 button {
@@ -32,23 +31,31 @@ button {
   height: 3rem;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 2rem;
-  border: 4px solid #5e503f;
+  margin-bottom: 3rem;
+  background-color: #5e503f;
 }
 
 #score {
   width: 8rem;
   height: 3rem;
   border-radius: 5px;
-  margin-bottom: 2rem;
   border: 4px solid #5e503f;
-  margin-right: 1rem;
   font-size: 14px;
+  text-align: center;
+  margin: 0 1rem 3rem 0;
+  padding-top: .4rem;
 }
 
 .title {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+#messages {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 1rem;
 }
 
 #myCanvas {
