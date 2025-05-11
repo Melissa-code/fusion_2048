@@ -71,7 +71,7 @@ class View {
           let fontSize = this.tileSize / (2.5 + numberString.length * 0.1); 
           this.ctx.font = `${fontSize}px arial`;
       
-          if (this.game.matrix[y][x] === 2 || this.game.matrix[y][x] === 4) {
+          if (this.game.matrix[y][x] === 2 || this.game.matrix[y][x] === 4 || this.game.matrix[y][x] === 128) {
             this.ctx.fillStyle = "#5e503f";
           } else {
             this.ctx.fillStyle = "#FFFFFF";

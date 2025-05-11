@@ -4,8 +4,7 @@ class Game {
     this.numbers = [];
     this.gameOver = false;
     this.score = 0;
-    this.matrix = this.loadGame() || this.initGame();
-
+    this.matrix = this.initGame();
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
   }
@@ -32,12 +31,14 @@ class Game {
         } 
       }
     }
+
     return true;
   }
 
   generateNumberTwoInMatrixRandomly() {
     let randomY;
     let randomX;
+
     do {
       randomY = Math.floor(Math.random() * this.matrix[0].length);
       randomX = Math.floor(Math.random() * this.matrix[1].length);
@@ -50,8 +51,7 @@ class Game {
     if (!this.checkIfMatrixFull()) {
       let randomY;
       let randomX;
-      // between 1-10
-      let randomNumber = Math.floor((Math.random() * 10) +1);
+      let randomNumber = Math.floor((Math.random() * 10) +1); // number between 1-10
   
       if (randomNumber === 4) {
         do {
@@ -68,8 +68,7 @@ class Game {
     
         this.matrix[randomY][randomX] = 2;
       }  
-    } 
-    
+    }  
   }
 
   move(direction) {
@@ -83,7 +82,6 @@ class Game {
         }
         // fusion des memes n° (values)
         let mergedNumeros = this.fusion(numerosArray);
-
         // recopier mergedNumeros dans la colone x
         for (let y = 0; y < this.width; y++) {
           this.matrix[y][x] = mergedNumeros[y];
@@ -98,10 +96,8 @@ class Game {
             numerosArray.push(this.matrix[y][x]);
           }
         }
-        // fusion des memes n° (values)
-        let mergedNumeros = this.fusion(numerosArray);
 
-        // recopier mergedNumeros dans la colone x
+        let mergedNumeros = this.fusion(numerosArray);
         for (let y = this.width - 1; y >= 0; y--) {
           this.matrix[y][x] = mergedNumeros[this.width-1-y];
         }
@@ -115,10 +111,8 @@ class Game {
             numerosArray.push(this.matrix[y][x]);
           }
         }
-        // fusion des memes n° (values)
-        let mergedNumeros = this.fusion(numerosArray);
 
-        // recopier mergedNumeros dans la colone x
+        let mergedNumeros = this.fusion(numerosArray);
         for (let x = this.width - 1; x >= 0; x--) {
           this.matrix[y][x] = mergedNumeros[this.width-1-x];
         }
@@ -132,10 +126,8 @@ class Game {
             numerosArray.push(this.matrix[y][x]);
           }
         }
-        // fusion des memes n° (values)
+    
         let mergedNumeros = this.fusion(numerosArray);
-
-        // recopier mergedNumeros dans la colone x
         for (let x = 0; x < this.width; x++) {
           this.matrix[y][x] = mergedNumeros[x];
         }
@@ -145,15 +137,15 @@ class Game {
 
   fusion(numerosArray_) {
     //[2,2,2]
-    let numerosArray = numerosArray_.filter(x =>x!=0);
+    let numerosArray = numerosArray_.filter(x => x !== 0);
     let fusionArray = [];
     let oldElement = numerosArray.shift();
       let newElement = null;
       while (numerosArray.length > 0) {
         newElement = numerosArray.shift();
-        if (oldElement==null)
+        if (oldElement === null)
         {
-          oldElement=newElement;
+          oldElement = newElement;
           continue;
         }
         if (newElement === oldElement && oldElement !== null) {
@@ -162,8 +154,7 @@ class Game {
           oldElement = null;
           // oldElem in fusionArray & if oldEl is null oldEl becomes newElem
           this.score += sum;
-        } 
-        else {
+        } else {
           if (oldElement !== null) {
             fusionArray.push(oldElement);
             oldElement=newElement;
@@ -180,7 +171,10 @@ class Game {
     return fusionArray;
   }
 
-  //déplacements
+  
+  /**
+   * déplacements
+   */
   processKey(event) {
     if (this.gameOver) return;
 
@@ -201,39 +195,17 @@ class Game {
 
     if (this.checkIfMatrixFull()) {
       this.gameOver = true;
-      console.log('perdu')
       return; // ne pas générer un nouveau nombre
     }
 
-  //  this.saveGame(this.matrix, this.score); 
     this.generateNewNumberInMatrixRandomly();
    
   }
 
-  saveGame(matrix, score) {
-    localStorage.setItem('gameMatrix', JSON.stringify(matrix));
-    localStorage.setItem('gameScore', JSON.stringify(score));
-  }
-
-  loadGame() {
-    const savedMatrix = localStorage.getItem('gameMatrix');
-    // JSON.parse(savedMatrix) convertir cette chaîne JSON en un objet JavaScript (la matrice)
-    const savedScore = localStorage.getItem('gameScore');
-    
-    if (savedMatrix && savedScore) {
-      this.score = JSON.parse(savedScore);
-      return JSON.parse(savedMatrix);
-    }
-  
-    return null;
-  }
-
   resetGame() {
-    localStorage.removeItem('gameMatrix');
     this.matrix = this.initGame(); 
     this.score = 0;
     this.gameOver = false;
-
     this.generateNumberTwoInMatrixRandomly();
     this.generateNumberTwoInMatrixRandomly();
   }

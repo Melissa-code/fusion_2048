@@ -8,7 +8,6 @@ const resetBtn = document.getElementById('reset');
 document.addEventListener('keydown', (event)=> {
     game.processKey(event); 
     view.refresh();
-
     if (game.isGameOver()) {
         view.displayMessage();
     }
@@ -17,4 +16,7 @@ document.addEventListener('keydown', (event)=> {
 resetBtn.addEventListener('click', () => {
     game.resetGame();   
     view.refresh();  
+    // delete "game over" message
+    const message = document.querySelector("#messages");
+    message.textContent = "";
 });

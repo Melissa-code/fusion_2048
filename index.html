@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
+        <meta name="description" content="Fusion 2048 est un jeu de puzzle inspiré du célèbre 2048. Combinez les tuiles, atteignez le plus haut score et amusez-vous gratuitement.">
+        <link rel="icon" type="image.svg" href="./assets/images/fusion_2048.svg" />
         <link rel="stylesheet" href="./css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
         <title>Fusion 2048</title>
@@ -13,18 +14,37 @@
         <div class="container">
             <!-- game over -->
             <div id="messages"></div>
-            <div class="title">
-                <h1>Fusion 2048</h1>
-                <!-- score -->
-                <div id="score"></div>
-                <!-- reset -->
-                <button id="reset"><i class="fas fa-sync-alt fa-lg" style="color: #f7f0e3;"></i></button>
+            <div class="header">
+                <div id="title">
+                    <h1>Fusion 2048</h1>
+                </div>
+                <div id="controls">
+                    <!-- score -->
+                    <div id="score"></div>
+                    <!-- reset -->
+                    <button id="reset" title="Rejouer"><i class="fas fa-sync-alt fa-lg" style="color: #f7f0e3;"></i></button>
+                </div>                
             </div>
             <div id="game">
                 <canvas id="myCanvas"></canvas>
             </div>
         </div>
-     
+
+        <!-- Notice for mobile devices -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                if (window.innerWidth <= 700) {
+                    let message = document.createElement("div");
+                    message.innerText = "Ce jeu ne peut être joué que sur ordinateur. Utilisez les flèches du clavier.";
+                    message.style.fontSize = "small";
+                    message.style.textAlign = "center";
+                    message.style.marginBottom = "2rem";
+                    message.style.color = "#f3722c";
+                    document.querySelector(".container").prepend(message);
+                }
+            });
+        </script>
+        
         <script type="module" src="./js/controller/controller.js"></script>
     </body>
 </html>
