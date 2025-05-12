@@ -10,7 +10,7 @@ Fusion 2048 est une version du jeu original 2048.
 - Le jeu se termine lorsque la grille est pleine et qu'aucun mouvement n'est possible.
 - L'objectif est d'atteindre la tuile 2048 et d'obtenir le score le plus élevé possible.
 
-Jeu codé en JavaScript et déployé sur Netlify: **[jouer en ligne à Fusion 2048](TO DO)**
+Jeu codé en JavaScript et déployé sur Netlify: **[jouer en ligne à Fusion 2048](https://fusion2048-game.netlify.app/)**
 
 ⚠️ **Ce jeu est optimisé pour ordinateur** et nécessite l'utilisation des flèches du clavier. Il n'est pas compatible avec les appareils mobiles ou tablettes.
 
