@@ -91,11 +91,10 @@ Fusion 2048 est basé sur plusieurs concepts algorithmiques
 
 - Utilisation d'une matrice 4x4 pour représenter la grille de jeu
 - Gestion des déplacements par manipulation de tableaux
-- Utilisation d'énumérations (enums) pour améliorer la lisibilité du code et en faciliter la maintenance. 
 
 #### 5.2. Utilisation des enums
 
-- Le jeu utilise des énumérationspour améliorer la lisibilité du code et en faciliter la maintenance 
+- Le jeu utilise des énumérations pour améliorer la lisibilité du code et en faciliter la maintenance 
 
 #### 5.3. Rendu graphique avec Canvas API
 
